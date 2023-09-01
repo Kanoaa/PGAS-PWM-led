@@ -1,0 +1,19 @@
+import board
+import analogio as aio
+import pwmio as pwm
+import time
+
+max = 65535
+min = 96
+
+pot = aio.AnalogIn(board.A1)
+led = pwm.PWMOut(board.LED, frequency = 5000, duty_cycle = 0)
+
+percent_on = 99
+
+while True:
+    led.duty_cycle = int(max * percent_on / 100)
+    time.sleep(0.1)
+    print(pot.value)
+    time.sleep(0.1)
+    led_on = (pot.value - min) / (max - min + 1)
